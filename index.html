@@ -108,8 +108,8 @@
                 </div>
 
                 <div class="social-links">
-                  <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
-                  <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                  <a href="https://github.com/KhalfaouiDriss" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                  <a href="https://www.linkedin.com/in/khalfaoui-driss-7a3300309" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
             </div>
@@ -975,6 +975,30 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
+  <!-- Chatbot UI -->
+  <button id="chatbot-toggle" class="btn btn-primary chatbot-toggle" aria-label="Open AI Chat" title="Ask about Driss">
+    <i class="bi bi-chat-dots"></i>
+  </button>
+  <div id="chatbot-panel" class="chatbot-panel card shadow" hidden>
+    <div class="chatbot-header d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-robot"></i>
+        <strong>Ask about Driss</strong>
+      </div>
+      <button class="btn-close" id="chatbot-close" aria-label="Close"></button>
+    </div>
+    <div class="chatbot-body">
+      <div class="chatbot-messages" id="chatbot-messages" aria-live="polite"></div>
+      <form id="chatbot-form" class="chatbot-form">
+        <input type="text" id="chatbot-input" class="form-control" placeholder="Ask something about Driss..." autocomplete="off" required>
+        <button class="btn btn-primary" type="submit" aria-label="Send"><i class="bi bi-send"></i></button>
+      </form>
+      <div class="chatbot-footer small text-muted">
+        <div class="small">This chat only answers questions about Khalfaoui Driss. It ignores unrelated topics.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -989,6 +1013,9 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- Chatbot JS -->
+  <script src="assets/js/chatbot.js"></script>
 
   <!-- EmailJS library -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
