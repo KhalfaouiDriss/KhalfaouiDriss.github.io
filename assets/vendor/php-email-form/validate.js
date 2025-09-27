@@ -50,10 +50,10 @@
   });
 
   function php_email_form_submit(thisForm, action, formData) {
+    // Note: Avoid custom headers to keep CORS as a simple request for cross-origin endpoints (e.g., Google Apps Script)
     fetch(action, {
       method: 'POST',
-      body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      body: formData
     })
     .then(response => {
       if( response.ok ) {
