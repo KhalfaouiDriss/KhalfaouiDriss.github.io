@@ -27,7 +27,7 @@
 	function systemPreamble(){
 		// Strictly limit scope to the provided profile only
 		return (
-			"You are an assistant that ONLY answers questions about the person 'Khalfaoui Driss'. " +
+			"You are an assistant that ONLY answers questions about the person driss khalfaoui and don't talk outside of the subject. " +
 			"If the user asks about anything else, reply briefly: don't be outside of the subject!.'" +
 			"\nUse the profile below as the ONLY source of truth. Answer in the language of the user's question.\n\n" +
 			"PROFILE:\n" +
