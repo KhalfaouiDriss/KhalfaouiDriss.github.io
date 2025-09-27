@@ -910,10 +910,8 @@
               <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ante ipsum primis.</p>
               -->
 
-              <!-- Use Apps Script Web App URL to store messages into contact-messages.json in Google Drive -->
-              <!-- Replace YOUR_APPS_SCRIPT_WEB_APP_URL below with the deployed URL -->
-              <!-- <form action="#" method="post" class="php-email-form"> -->
-              <form action="#" class="php-email-form">
+              <!-- EmailJS: سنستخدمه لإرسال الرسائل إلى بريدك بدون باك‑إند -->
+              <form action="#" class="php-email-form" data-emailjs="true">
                 <div class="row gy-4">
 
                   <div class="col-md-6">
@@ -934,7 +932,7 @@
 
                   <div class="col-12 text-center">
                     <div class="loading">Loading</div>
-                    <!-- <div class="error-message"></div> -->
+                    <div class="error-message"></div>
                     <div class="sent-message">Your message has been sent. Thank you!</div>
 
                     <button type="submit" class="btn">Send Message</button>
@@ -991,6 +989,43 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- EmailJS library -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    // استبدل القيم التالية من حساب EmailJS الخاص بك
+    const EMAILJS_PUBLIC_KEY = '--f916pWhPD84t3Jr';
+    const EMAILJS_SERVICE_ID = 'service_ld6d2hn';
+    const EMAILJS_TEMPLATE_ID = 'template_ozanqb7';
+
+    (function(){ try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch(e) {} })();
+
+    // ربط نموذج الاتصال لإرساله عبر EmailJS دون تغيير الواجهة
+    (function(){
+      const form = document.querySelector('.php-email-form[data-emailjs="true"]');
+      if (!form) return;
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const loadingEl = form.querySelector('.loading');
+        const errorEl = form.querySelector('.error-message');
+        const sentEl = form.querySelector('.sent-message');
+        if (loadingEl) loadingEl.classList.add('d-block');
+        if (errorEl) { errorEl.classList.remove('d-block'); errorEl.textContent=''; }
+        if (sentEl) sentEl.classList.remove('d-block');
+
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+          .then(function(){
+            if (loadingEl) loadingEl.classList.remove('d-block');
+            if (sentEl) sentEl.classList.add('d-block');
+            form.reset();
+          })
+          .catch(function(err){
+            if (loadingEl) loadingEl.classList.remove('d-block');
+            if (errorEl) { errorEl.textContent = (err && (err.text||err.message)) ? (err.text||err.message) : 'Failed to send'; errorEl.classList.add('d-block'); }
+          });
+      });
+    })();
+  </script>
 
 </body>
 
