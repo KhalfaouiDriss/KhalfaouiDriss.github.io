@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norgrains SE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --text-secondary: #666;
+            --accent-color: #3b82f6;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        /* Layout States */
+        body.has-results {
+            justify-content: flex-start;
+            padding-top: 40px;
+        }
+        
+        body:not(.has-results) {
+            justify-content: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        body.has-results h1 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        /* Search Input Styles */
+        .container-input {
+            position: relative;
+            margin-bottom: 40px;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .input {
+            width: 200px;
+            padding: 12px 15px 12px 45px;
+            border-radius: 9999px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            outline: none;
+            font-size: 16px;
+        }
+
+        .container-input svg {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translate(0, -50%);
+            fill: var(--text-secondary);
+        }
+
+        .input:focus {
+            width: 350px;
+            border-color: #cbd5e0;
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Results Grid */
+        .results-container {
+            width: 90%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        body.has-results .results-container {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        /* Card Design */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: #e2e8f0;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            color: #2d3748;
+        }
+
+        .badge {
+            background: #e2e8f0;
+            color: #4a5568;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .color-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .color-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.1);
+            margin-right: 8px;
+        }
+
+        .color-name {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .spec-item i {
+            width: 20px;
+            color: #a0aec0;
+            margin-right: 8px;
+            text-align: center;
+        }
+
+        /* Collapsible Details */
+        .details-collapse {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .details-collapse.show {
+            max-height: 200px; /* Approximate max height */
+            transition: max-height 0.3s ease-in;
+        }
+
+        .details-content {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .details-full-width {
+            grid-column: 1 / -1;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 10px 0 0 0;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+            margin-top: auto;
+        }
+
+        .toggle-btn:hover {
+            color: #2563eb;
+        }
+
+        .toggle-btn i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-btn.active i {
+            transform: rotate(180deg);
+        }
+
+        /* Loading & Error States */
+        .status-message {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #333;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Norgrains SE</h1>
+
+    <div class="container-input">
+        <input type="text" placeholder="Search by reference..." name="text" class="input" id="searchInput">
+        <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+            <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+        </svg>
+    </div>
+
+    <div id="status" class="status-message"></div>
+
+    <div class="results-container" id="resultsContainer">
+        <!-- Cards will be injected here -->
+    </div>
+
+    <script type="module">
+        import { getAllData } from './DataAPI.js';
+
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const statusDiv = document.getElementById('status');
+        const body = document.body;
+
+        let allData = [];
+        let isLoaded = false;
+
+        // Initialize data
+        async function init() {
+            try {
+                statusDiv.innerHTML = '<div class="loader"></div>';
+                statusDiv.style.display = 'block';
+                
+                allData = await getAllData();
+                isLoaded = true;
+                statusDiv.style.display = 'none';
+                console.log("Data loaded:", allData);
+            } catch (error) {
+                console.error("Failed to load data", error);
+                statusDiv.innerText = 'Failed to load data. Please try again later.';
+                // Fallback dummy data matching the user's schema
+                allData = [
+                    { 
+                        id: 1, 
+                        ref: "Sac PP Tissé 50kg", 
+                        img: "", 
+                        color: "#f1c40f", 
+                        colorBand: "Jaune", 
+                        long: 90, 
+                        larg: 60, 
+                        poidMC: 70, 
+                        poidSac: 85, 
+                        DT: "10x10", 
+                        DCH: "10x10", 
+                        bondeletteT: "Oui", 
+                        bondeletteCH: "Non" 
+                    },
+                    { 
+                        id: 2, 
+                        ref: "Sac Farine 25kg", 
+                        img: "", 
+                        color: "#ffffff", 
+                        colorBand: "Blanc", 
+                        long: 80, 
+                        larg: 50, 
+                        poidMC: 65, 
+                        poidSac: 60, 
+                        DT: "11x11", 
+                        DCH: "11x11", 
+                        bondeletteT: "Non", 
+                        bondeletteCH: "Non" 
+                    },
+                    { 
+                        id: 3, 
+                        ref: "Sac Semoule 10kg", 
+                        img: "", 
+                        color: "#e74c3c", 
+                        colorBand: "Rouge", 
+                        long: 60, 
+                        larg: 40, 
+                        poidMC: 60, 
+                        poidSac: 45, 
+                        DT: "12x12", 
+                        DCH: "12x12", 
+                        bondeletteT: "Oui", 
+                        bondeletteCH: "Oui" 
+                    }
+                ];
+                isLoaded = true;
+            }
+        }
+
+        // Filter and Render
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+
+            if (query.length > 0) {
+                body.classList.add('has-results');
+                
+                const filtered = allData.filter(item => {
+                    const ref = (item.ref || '').toLowerCase();
+                    return ref.includes(query);
+                });
+
+                renderResults(filtered);
+            } else {
+                body.classList.remove('has-results');
+                resultsContainer.innerHTML = '';
+            }
+        }
+
+        function renderResults(items) {
+            resultsContainer.innerHTML = '';
+            
+            if (items.length === 0) {
+                resultsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">No results found.</p>';
+                return;
+            }
+
+            items.forEach(item => {
+                const img = item.img && item.img.trim() ? item.img : 'https://via.placeholder.com/300x200?text=No+Image';
+                const idSafe = String(item.id ?? "");
+                const refSafe = String(item.ref ?? "");
+                const color = (item.color ?? '').toString();
+                const band = (item.colorBand ?? '').toString();
+                const longVal = item.long ?? '-';
+                const largVal = item.larg ?? '-';
+                const poidMC = item.poidMC ?? '-';
+                const poidSac = item.poidSac ?? '-';
+                const DT = item.DT ?? '-';
+                const DCH = item.DCH ?? '-';
+                const bonT = item.bondeletteT ?? '-';
+                const bonCH = item.bondeletteCH ?? '-';
+                const unique = idSafe || Math.random().toString(36).slice(2, 9);
+                const detailsId = `details-${unique}`;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                card.innerHTML = `
+                    <img src="${img}" alt="${refSafe}" class="card-img-top" onerror="this.src='https://via.placeholder.com/300x200?text=Error'">
+                    <div class="card-body">
+                        <div class="card-header-row">
+                            <h3 class="card-title">${refSafe}</h3>
+                            <span class="badge">${band}</span>
+                        </div>
+                        
+                        <div class="color-row">
+                            <span class="color-dot" style="background:${color || '#eee'};"></span>
+                            <span class="color-name">${color}</span>
+                        </div>
+
+                        <div class="specs-grid">
+                            <div class="spec-item">
+                                <i class="fa fa-ruler-combined"></i> 
+                                <span>${longVal} × ${largVal} cm</span>
+                            </div>
+                        </div>
+
+                        <div class="details-collapse" id="${detailsId}">
+                            <div class="details-content">
+                                <div class="spec-item">
+                                    <i class="fa fa-weight-hanging"></i> 
+                                    <span>${poidMC} g/m²</span>
+                                </div>
+                                <div class="spec-item">
+                                    <i class="fa fa-box"></i> 
+                                    <span>${poidSac} g</span>
+                                </div>
+                                <div class="spec-item details-full-width">
+                                    <i class="fa fa-wave-square"></i> 
+                                    <span>DT ${DT} | DCH ${DCH}</span>
+                                </div>
+                                <div class="spec-item details-full-width">
+                                    <i class="fa fa-grip-lines"></i> 
+                                    <span>Trame: ${bonT} — Chaîne: ${bonCH}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="toggle-btn" onclick="toggleDetails('${detailsId}', this)">
+                            <span class="label">Show details</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                    </div>
+                `;
+                resultsContainer.appendChild(card);
+            });
+        }
+
+        // Expose toggle function to window
+        window.toggleDetails = function(id, btn) {
+            const el = document.getElementById(id);
+            const isHidden = !el.classList.contains('show');
+            
+            if (isHidden) {
+                el.classList.add('show');
+                btn.classList.add('active');
+                btn.querySelector('.label').textContent = 'Hide details';
+            } else {
+                el.classList.remove('show');
+                btn.classList.remove('active');
+                btn.querySelector('.label').textContent = 'Show details';
+            }
+        };
+
+        // Event Listeners
+        searchInput.addEventListener('input', handleSearch);
+        
+        // Load data on start
+        init();
+
+    </script>
+</body>
+</html>
