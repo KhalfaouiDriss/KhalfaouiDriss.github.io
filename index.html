@@ -41,7 +41,7 @@
           <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
           <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
           <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
-          <!-- <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li> -->
+          <li><a href="#projects"><i class="bi bi-images navicon"></i> Projects</a></li>
           <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>
           <!-- <li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
@@ -533,140 +533,125 @@
 
     </section><!-- /Resume Section -->
 
-    <!-- Portfolio Section -->
-    <!-- <section id="portfolio" class="portfolio section">
+        <!-- Live Projects Section -->
+    <section id="projects" class="projects section">
 
-      Section Title
+      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-      </div>End Section Title
+        <h2>Projects</h2>
+        <p>A showcase of some of my recent web applications and platforms</p>
+      </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
 
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+          <style>
+            .iframe-wrapper {
+              position: relative;
+              width: 100%;
+              padding-top: 70%; /* Adjust ratio for cart */
+              overflow: hidden;
+              border-radius: 8px;
+              margin-bottom: 15px;
+              background: #f4f6f8;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .iframe-wrapper iframe {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 250%;    /* Load a wider view */
+              height: 250%;   /* Load a taller view */
+              transform: scale(0.4); /* Shrink it down to fit wrapper constraints */
+              transform-origin: 0 0;
+              border: 0;
+              pointer-events: none; /* Prevents scroll trap */
+            }
+            .project-card {
+              height: 100%;
+              transition: transform 0.3s;
+              padding: 20px;
+              display: block;
+              background: var(--surface-color);
+              border-radius: 12px;
+              box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.1);
+            }
+            .project-card:hover {
+              transform: translateY(-5px);
+            }
+            .project-card h3 {
+              font-size: 20px;
+              margin-bottom: 10px;
+              display: flex;
+              align-items: center;
+              color: var(--heading-color);
+            }
+            .project-card h3 i {
+              font-size: 16px;
+              color: var(--accent-color);
+              transition: 0.3s;
+            }
+            .project-card:hover h3 i {
+              transform: translate(2px, -2px);
+            }
+            .project-card p {
+              font-size: 14px;
+              color: var(--default-color);
+              opacity: 0.8;
+              margin: 0;
+            }
+          </style>
 
-          <div class="row">
-            <div class="col-lg-3 filter-sidebar">
-              <div class="filters-wrapper" data-aos="fade-right" data-aos-delay="150">
-                <ul class="portfolio-filters isotope-filters">
-                  <li data-filter="*" class="filter-active">All Projects</li>
-                  <li data-filter=".filter-photography">Photography</li>
-                  <li data-filter=".filter-design">Design</li>
-                  <li data-filter=".filter-automotive">Automotive</li>
-                  <li data-filter=".filter-nature">Nature</li>
-                </ul>
+                    <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <a href="https://47mintra.app" target="_blank" class="project-card text-decoration-none">
+              <div class="iframe-wrapper img-wrapper" style="background-image: url('https://image.thum.io/get/width/600/crop/800/https://47mintra.app'); background-size: cover; background-position: top center;">
+                <!-- Fallback to a thumbnail generator service -->
               </div>
-            </div>
+              <h3>47mintra.app <i class="bi bi-box-arrow-up-right ms-2"></i></h3>
+              <p>Explore this project live. Interactive, responsive web application.</p>
+            </a>
+          </div>
 
-            <div class="col-lg-9">
-              <div class="row gy-4 portfolio-container isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-photography">
-                  <div class="portfolio-wrap">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-fluid" alt="Portfolio Image" loading="lazy" data-src="">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Photography</span>
-                        <h4>Capturing Moments</h4>
-                        <div class="portfolio-links">
-                          <a href="#" class="glightbox" title="Capturing Moments"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-details.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>End Portfolio Item
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-design">
-                  <div class="portfolio-wrap">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-fluid" alt="Portfolio Image" loading="lazy" data-src="">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Web Design</span>
-                        <h4>Woodcraft Design</h4>
-                        <div class="portfolio-links">
-                          <a href="#" class="glightbox" title="Woodcraft Design"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-details.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>End Portfolio Item
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-automotive">
-                  <div class="portfolio-wrap">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-fluid" alt="Portfolio Image" loading="lazy" data-src="">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Automotive</span>
-                        <h4>Classic Beauty</h4>
-                        <div class="portfolio-links">
-                          <a href="#" class="glightbox" title="Classic Beauty"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-details.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>End Portfolio Item
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-nature">
-                  <div class="portfolio-wrap">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-fluid" alt="Portfolio Image" loading="lazy" data-src="">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Nature</span>
-                        <h4>Natural Growth</h4>
-                        <div class="portfolio-links">
-                          <a href="#" class="glightbox" title="Natural Growth"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-details.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>End Portfolio Item
+          
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-photography">
-                  <div class="portfolio-wrap">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-fluid" alt="Portfolio Image" loading="lazy" data-src="">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Photography</span>
-                        <h4>Urban Stories</h4>
-                        <div class="portfolio-links">
-                          <a href="#" class="glightbox" title="Urban Stories"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-details.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>End Portfolio Item
+                    <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <a href="https://menucrafts.app" target="_blank" class="project-card text-decoration-none">
+              <div class="iframe-wrapper img-wrapper" style="background-image: url('https://image.thum.io/get/width/600/crop/800/https://menucrafts.app'); background-size: cover; background-position: top center;">
+                <!-- Fallback to a thumbnail generator service -->
+              </div>
+              <h3>menucrafts.app <i class="bi bi-box-arrow-up-right ms-2"></i></h3>
+              <p>Explore this project live. Interactive, responsive web application.</p>
+            </a>
+          </div>
 
-                <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-design">
-                  <div class="portfolio-wrap">
-                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-fluid" alt="Portfolio Image" loading="lazy" data-src="">
-                    <div class="portfolio-info">
-                      <div class="content">
-                        <span class="category">Web Design</span>
-                        <h4>Digital Experience</h4>
-                        <div class="portfolio-links">
-                          <a href="#" class="glightbox" title="Digital Experience"><i class="bi bi-plus-lg"></i></a>
-                          <a href="portfolio-details.html" title="More Details"><i class="bi bi-arrow-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>End Portfolio Item
+          <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+            <a href="https://mintralib.vercel.app" target="_blank" class="project-card text-decoration-none">
+              <div class="iframe-wrapper">
+                <iframe src="https://mintralib.vercel.app" title="mintralib.vercel.app preview"></iframe>
+              </div>
+              <h3>mintralib.vercel.app <i class="bi bi-box-arrow-up-right ms-2"></i></h3>
+              <p>Explore this project live. Interactive, responsive web application.</p>
+            </a>
+          </div>
 
-              </div>End Portfolio Container
-            </div>
+          <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+            <a href="https://norgrainse.vercel.app" target="_blank" class="project-card text-decoration-none">
+              <div class="iframe-wrapper">
+                <iframe src="https://norgrainse.vercel.app" title="norgrainse.vercel.app preview"></iframe>
+              </div>
+              <h3>norgrainse.vercel.app <i class="bi bi-box-arrow-up-right ms-2"></i></h3>
+              <p>Explore this project live. Interactive, responsive web application.</p>
+            </a>
           </div>
 
         </div>
-
       </div>
 
-    </section>/Portfolio Section -->
+    </section><!-- /Live Projects Section -->
 
     <!-- Services Section -->
     <section id="services" class="services section">
